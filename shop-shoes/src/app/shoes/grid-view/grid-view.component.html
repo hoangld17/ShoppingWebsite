@@ -1,0 +1,24 @@
+<div class="row">
+    <div class="col-md-4" *ngFor="let shoe of shoes; let i=index">
+        <figure class="card card-product-grid">
+            <div class="img-wrap">
+                <span class="badge badge-danger"> NEW </span>
+                <img [src]="images[i]">
+                <a class="btn-overlay text-white" style="cursor: pointer;" (click)="onDetail(shoe.id)"><i class="fa fa-search-plus"></i> Quick view</a>
+            </div>
+            <!-- img-wrap.// -->
+            <figcaption class="info-wrap">
+                <div class="fix-height">
+                    <a style="cursor: pointer;" (click)="onDetail(shoe.id)" class="title">{{shoe.name}}</a>
+                    <div class="price-wrap mt-2">
+                        <span class="price">${{shoe.discount}}</span>
+                        <del class="price-old" *ngIf="isDiscount(i)">${{shoe.price}}</del>
+                    </div>
+                    <!-- price-wrap.// -->
+                </div>
+                <a style="cursor: pointer;" (click)="onDetail(shoe.id)" class="btn btn-block btn-primary text-white">Details</a>
+            </figcaption>
+        </figure>
+    </div>
+</div>
+<!-- row end.// -->

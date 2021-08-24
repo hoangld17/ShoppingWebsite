@@ -1,0 +1,86 @@
+<section class="section-content padding-y">
+    <div class="container">
+
+        <div class="row">
+            <aside class="col-lg-3">
+
+                <div class="card">
+                    <!-- filter-group .// -->
+                    <article class="filter-group">
+                        <header class="card-header">
+                            <a href="#" data-toggle="collapse" data-target="#collapse_3" aria-expanded="true" class="">
+                                <i class="icon-control fa fa-chevron-down"></i>
+                                <h6 class="title">Search date</h6>
+                            </a>
+                        </header>
+                        <div class="filter-content collapse show" id="collapse_3" style="">
+                            <div class="card-body">
+                                <div class="form-row">
+                                    <div class="form-group col-md-12">
+                                        <label for="from">From date</label>
+                                        <input id="from" class="form-control" type="date" #fromDate [max]="toDateValue" (change)="fromDateValue">
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label for="to">To date</label>
+                                        <input id="to" class="form-control" type="date" #toDate [min]="fromDateValue" (change)="toDateValue" [max]="convertDate(today, true)">
+                                    </div>
+                                </div>
+                                <!-- form-row.// -->
+                                <button class="btn btn-block btn-primary" (click)="searchDate()">Apply</button>
+                            </div>
+                            <!-- card-body.// -->
+                        </div>
+                    </article>
+                </div>
+                <!-- card.// -->
+
+            </aside>
+            <!-- col.// -->
+            <main class="col-md-9">
+
+                <header class="border-bottom mb-4 pb-3">
+                    <div class="form-inline">
+                        <span class="mr-md-auto h4">{{totalResult}} Items found </span>
+                        <select class="mr-2 form-control" (change)="modo($event)">
+              <option value="latest">Latest bills</option>
+              <option value="cheapest">Oldest bills</option>
+          </select>
+                    </div>
+                </header>
+                <!-- sect-heading -->
+                <div class="row">
+                    <div class="col-md-4" *ngFor="let bill of bills; let i=index">
+                        <figure class="card card-product-grid">
+                            <!-- img-wrap.// -->
+                            <figcaption class="info-wrap" style="cursor: pointer;" (click)="navigateBillDetail(bill.id)">
+                                <div class="body">
+                                    <a style="cursor: pointer;" class="title">Bill #{{bill.id}}</a>
+                                    <div class="mt-1">Purchase date: {{formatPurchaseDate(bill.purchaseDate)}}</div>
+                                    <div class="price-wrap mt-1">
+                                        <span class="price">Total money: ${{bill.total}}</span>
+                                    </div>
+                                    <!-- price-wrap.// -->
+                                    <div class="mt-1"><a style="cursor: pointer;" class="btn btn-block btn-primary text-white">Details</a></div>
+                                </div>
+
+                            </figcaption>
+                        </figure>
+                    </div>
+                </div>
+
+                <nav aria-label="Page navigation sample" *ngIf="totalResult != 0">
+                    <ul class="pagination">
+                        <li class="page-item" *ngIf="isPrevious"><button class="page-link" (click)="onPreviousPage()">Previous</button></li>
+                        <li class="page-item" *ngFor="let page of paging; let i=index" [ngClass]="page ? 'active' : ''"><button class="page-link" (click)="onChangePage(i)">{{i+1}}</button></li>
+                        <li class="page-item" *ngIf="isNext"><button class="page-link" (click)="onNextPage()">Next</button></li>
+                    </ul>
+                </nav>
+
+            </main>
+            <!-- col.// -->
+
+        </div>
+
+    </div>
+    <!-- container .//  -->
+</section>

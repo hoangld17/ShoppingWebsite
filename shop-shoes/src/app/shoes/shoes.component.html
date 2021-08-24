@@ -1,0 +1,135 @@
+<!-- ========================= SECTION INTRO END// ========================= -->
+
+<!-- ========================= SECTION CONTENT ========================= -->
+<section class="section-content padding-y">
+    <div class="container">
+
+        <div class="row">
+            <aside class="col-md-3">
+
+                <div class="card">
+                    <article class="filter-group">
+                        <header class="card-header">
+                            <a href="#" data-toggle="collapse" data-target="#collapse_1" aria-expanded="true" class="">
+                                <i class="icon-control fa fa-chevron-down"></i>
+                                <h6 class="title">Product Name</h6>
+                            </a>
+                        </header>
+                        <div class="filter-content collapse show" id="collapse_1" style="">
+                            <div class="card-body">
+                                <form class="pb-3">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" placeholder="Search" #name maxlength="50">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-light" type="button" (click)="searchName()"><i class="fa fa-search"></i></button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <!-- card-body.// -->
+                        </div>
+                    </article>
+                    <!-- filter-group  .// -->
+                    <article class="filter-group">
+                        <header class="card-header">
+                            <a href="#" data-toggle="collapse" data-target="#collapse_2" aria-expanded="true" class="">
+                                <i class="icon-control fa fa-chevron-down"></i>
+                                <h6 class="title">Brands </h6>
+                            </a>
+                        </header>
+                        <div class="filter-content collapse show" id="collapse_2" style="">
+                            <div class="card-body">
+                                <label class="custom-control custom-checkbox" *ngFor="let brand of brands; let i=index">
+                    <input type="checkbox" checked="" class="custom-control-input" (change)="OnCheckboxSelect(brand.id, $event)">
+                    <div class="custom-control-label">{{brand.name}}
+                        <b class="badge badge-pill badge-light float-right">{{brand.quantity}}</b>  </div>
+                  </label>
+                                <button class="btn btn-block btn-primary" (click)="searchBrand()">Apply</button>
+                            </div>
+
+                            <!-- card-body.// -->
+                        </div>
+                    </article>
+                    <!-- filter-group .// -->
+                    <article class="filter-group">
+                        <header class="card-header">
+                            <a href="#" data-toggle="collapse" data-target="#collapse_3" aria-expanded="true" class="">
+                                <i class="icon-control fa fa-chevron-down"></i>
+                                <h6 class="title">Price range </h6>
+                            </a>
+                        </header>
+                        <div class="filter-content collapse show" id="collapse_3" style="">
+                            <div class="card-body">
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="min">Min</label>
+                                        <input id="min" class="form-control" placeholder="$0" type="number" min="0" max="10000" maxlength="5" #minPrice (change)="changeMin()">
+                                    </div>
+                                    <div class="form-group text-right col-md-6">
+                                        <label for="max">Max</label>
+                                        <input id="max" class="form-control" placeholder="$10,000" type="number" min="0" max="10000" maxlength="5" #maxPrice (change)="changeMax()">
+                                    </div>
+                                </div>
+                                <!-- form-row.// -->
+                                <button class="btn btn-block btn-primary" (click)="searchPriceRange()">Apply</button>
+                            </div>
+                            <!-- card-body.// -->
+                        </div>
+                    </article>
+                    <article class="filter-group">
+                        <header class="card-header">
+                            <a href="#" data-toggle="collapse" data-target="#collapse_4" aria-expanded="true" class="">
+                                <i class="icon-control fa fa-chevron-down"></i>
+                                <h6 class="title">Filter All</h6>
+                            </a>
+                        </header>
+                        <div class="filter-content collapse show" id="collapse_4" style="">
+                            <div class="card-body">
+                                <button class="btn btn-block btn-primary" (click)="searchAll()">Apply</button>
+                            </div>
+                            <!-- card-body.// -->
+                        </div>
+                    </article>
+                </div>
+                <!-- card.// -->
+
+            </aside>
+            <!-- col.// -->
+            <main class="col-md-9">
+
+                <header class="border-bottom mb-4 pb-3">
+                    <div class="form-inline">
+                        <span class="mr-md-auto h4">{{totalResult}} Items found </span>
+                        <select class="mr-2 form-control" (change)="modo($event)">
+                  <option value="latest">Latest items</option>
+                  <option value="cheapest">Cheapest</option>
+                  <option value="highest">Highest</option>
+                  <option *ngIf="false">Wishlist</option>
+              </select>
+                        <div class="btn-group">
+                            <button class="btn btn-outline-secondary" (click)="onChangeMode()" [ngClass]="isListView ? 'active' : ''" data-toggle="tooltip" title="List view">
+                                <i class="fa fa-bars"></i></button>
+                            <button class="btn  btn-outline-secondary" (click)="onChangeMode()" [ngClass]="isListView ? '' : 'active'" data-toggle="tooltip" title="Grid view">
+                                <i class="fa fa-th"></i></button>
+                        </div>
+                    </div>
+                </header>
+                <!-- sect-heading -->
+                <app-list-view *ngIf="isListView" [shoes]="page.content" [images]="image"></app-list-view>
+                <app-grid-view *ngIf="!isListView" [shoes]="page.content" [images]="image"></app-grid-view>
+                <nav aria-label="Page navigation sample" *ngIf="totalResult != 0">
+                    <ul class="pagination">
+                        <li class="page-item" *ngIf="isPrevious"><button class="page-link" (click)="onPreviousPage()">Previous</button></li>
+                        <li class="page-item" *ngFor="let page of paging; let i=index" [ngClass]="page ? 'active' : ''"><button class="page-link" (click)="onChangePage(i)">{{i+1}}</button></li>
+                        <li class="page-item" *ngIf="isNext"><button class="page-link" (click)="onNextPage()">Next</button></li>
+                    </ul>
+                </nav>
+
+            </main>
+            <!-- col.// -->
+
+        </div>
+
+    </div>
+    <!-- container .//  -->
+</section>

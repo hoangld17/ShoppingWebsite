@@ -1,0 +1,136 @@
+<ng-template appPlaceholder></ng-template>
+<section class="section-content padding-y">
+    <div class="container">
+
+        <div class="row">
+            <main class="col-md-9">
+                <div class="card">
+
+                    <table class="table table-borderless table-shopping-cart">
+                        <thead class="text-muted">
+                            <tr class="small text-uppercase">
+                                <th scope="col">Product</th>
+                                <th scope="col" width="120">Quantity</th>
+                                <th scope="col" width="120">Price</th>
+                                <th scope="col" class="text-right" width="200"> </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let billDetail of cart.listBillDetail; let i=index">
+                                <td>
+                                    <figure class="itemside">
+                                        <a style="cursor: pointer;" (click)="onDetail(billDetail.idShoes)" class="aside"><img [src]="getImageURL(billDetail.image)" class="img-sm"></a>
+                                        <figcaption class="info">
+                                            <a style="cursor: pointer;" (click)="onDetail(billDetail.idShoes)" class="title text-dark">{{billDetail.nameShoes}}</a>
+                                            <p class="text-muted small">Size: {{billDetail.size}}<br> Brand: {{billDetail.nameBrand}}</p>
+                                        </figcaption>
+                                    </figure>
+                                </td>
+                                <td>
+                                    <div class="font-bold">{{billDetail.quantity}}</div>
+                                </td>
+                                <td>
+                                    <div class="price-wrap">
+                                        <var class="price">${{billDetail.quantity * billDetail.price}}</var>
+                                        <small class="text-muted"> ${{billDetail.price}} each </small>
+                                    </div>
+                                    <!-- price-wrap .// -->
+                                </td>
+                                <td class="text-right">
+                                    <a data-original-title="Save to Wishlist" title="" href="" class="btn btn-light mr-2" data-toggle="tooltip"> <i class="fa fa-heart"></i></a>
+                                    <a style="cursor: pointer;" (click)="removeBillDetail(i)" class="btn btn-light">Remove</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="card-body border-top">
+                        <a style="cursor: pointer;" (click)="payment()" class="btn btn-primary float-md-right text-white"> Make Purchase <i class="fa fa-chevron-right"></i> </a>
+                        <a style="cursor: pointer;" (click)="onSupermarket()" class="btn btn-light"> <i class="fa fa-chevron-left"></i> Continue shopping </a>
+                    </div>
+                </div>
+                <!-- card.// -->
+
+                <div class="alert alert-success mt-3">
+                    <p class="icontext"><i class="icon text-success fa fa-truck"></i> Free Delivery within 1-2 weeks</p>
+                </div>
+
+            </main>
+            <!-- col.// -->
+            <aside class="col-md-3">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <form>
+                            <div class="form-group">
+                                <div>Address:</div>
+                                <div class="font-bold font-italic">{{cart.address}}</div>
+                                <div>Phone:</div>
+                                <div class="font-bold font-italic">{{cart.phone}}</div>
+                                <div class="btn btn-primary w-100" (click)="openCartModal()">Edit</div>
+                                <app-modal-cart [address]="cart.address" [phone]="cart.phone" (edit)="editCart($event)"></app-modal-cart>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- card-body.// -->
+                </div>
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <form>
+                            <div class="form-group">
+                                <label>Have coupon?</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="" placeholder="Coupon code">
+                                    <span class="input-group-append">
+                              <button class="btn btn-primary">Apply</button>
+                          </span>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- card-body.// -->
+                </div>
+                <!-- card .// -->
+                <div class="card">
+                    <div class="card-body">
+                        <dl class="dlist-align">
+                            <dt>Total price:</dt>
+                            <dd class="text-right">USD {{cart.total}}</dd>
+                        </dl>
+                        <dl class="dlist-align">
+                            <dt>Discount:</dt>
+                            <dd class="text-right">USD {{cart.discount}}</dd>
+                        </dl>
+                        <dl class="dlist-align">
+                            <dt>Total:</dt>
+                            <dd class="text-right  h5"><strong>${{cart.total - cart.discount}}</strong></dd>
+                        </dl>
+                        <hr>
+                        <p class="text-center mb-3">
+                            <img src="assets/images/misc/payments.png" height="26">
+                        </p>
+
+                    </div>
+                    <!-- card-body.// -->
+                </div>
+                <!-- card .// -->
+            </aside>
+            <!-- col.// -->
+        </div>
+
+    </div>
+    <!-- container .//  -->
+</section>
+<!-- ========================= SECTION CONTENT END// ========================= -->
+
+<!-- ========================= SECTION  ========================= -->
+<section class="section-name bg padding-y">
+    <div class="container">
+        <h6>Payment and refund policy</h6>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+            irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+            irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+    </div>
+    <!-- container // -->
+</section>
